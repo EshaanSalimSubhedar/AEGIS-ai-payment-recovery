@@ -1,0 +1,89 @@
+# ==============================
+# Python
+# ==============================
+
+.venv/
+venv/
+env/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==============================
+# Environment / Secrets
+# ==============================
+
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Database
+# ==============================
+
+backend/recovery.db
+*.db
+*.sqlite
+*.sqlite3
+
+# ==============================
+# Logs
+# ==============================
+
+*.log
+logs/
+
+# ==============================
+# Python coverage
+# ==============================
+
+.coverage
+htmlcov/
+coverage.xml
+
+# ==============================
+# Node / React
+# ==============================
+
+node_modules/
+frontend/node_modules/
+
+dist/
+frontend/dist/
+
+.vite/
+
+# ==============================
+# IDEs
+# ==============================
+
+.vscode/
+.idea/
+
+# ==============================
+# OS files
+# ==============================
+
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Temporary files
+# ==============================
+
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# ==============================
+# Local secrets / credentials
+# ==============================
+
+secrets/
+credentials/

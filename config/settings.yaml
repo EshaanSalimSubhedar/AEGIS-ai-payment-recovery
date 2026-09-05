@@ -1,0 +1,106 @@
+# ==========================================
+# AI Failed-Payment Recovery Agent
+# ==========================================
+
+app:
+  name: "AI Failed-Payment Recovery Agent"
+  environment: "development"
+  timezone: "Asia/Kolkata"
+
+# ==========================================
+# Recovery / Retry Rules
+# ==========================================
+
+retry:
+  max_attempts: 3
+
+  # Minimum time between automated attempts
+  cooldown_hours: 2
+
+  # If the maximum attempts are reached,
+  # move the payment to the exceptions queue.
+  auto_abandon: true
+
+# ==========================================
+# Recovery Score Thresholds
+# ==========================================
+
+scoring:
+  high_probability: 0.70
+  medium_probability: 0.45
+  low_probability: 0.45
+
+# ==========================================
+# Action Strategy
+# ==========================================
+
+strategy:
+  bank_timeout:
+    action: "immediate_retry"
+
+  insufficient_funds:
+    action: "delayed_retry"
+
+  card_expired:
+    action: "payment_link"
+
+  issuer_declined:
+    action: "human_review"
+
+  unknown:
+    action: "human_review"
+
+# ==========================================
+# External API Retry Policy
+# ==========================================
+
+api_retry:
+  max_attempts: 2
+  initial_delay_seconds: 1
+  backoff_multiplier: 2
+
+# ==========================================
+# LLM
+# ==========================================
+
+llm:
+  provider: "groq"
+  model: "llama-3.3-70b-versatile"
+
+  temperature: 0.3
+  max_tokens: 180
+
+  fallback_enabled: true
+
+# ==========================================
+# Messaging
+# ==========================================
+
+messaging:
+  channel: "twilio_sms"
+
+  max_message_length: 480
+
+  opt_out_keywords:
+    - "STOP"
+    - "NO"
+    - "UNSUBSCRIBE"
+    - "CANCEL"
+
+# ==========================================
+# Promise To Pay
+# ==========================================
+
+ptp:
+  enabled: true
+
+  # Follow-up is scheduled only for the
+  # date explicitly promised by the customer.
+  follow_up_same_day: true
+
+# ==========================================
+# Dashboard
+# ==========================================
+
+dashboard:
+  polling_interval_seconds: 3
